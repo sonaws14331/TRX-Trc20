@@ -240,7 +240,11 @@ export default function App() {
         throw new Error(
           "Select BNB Smart Chain or BNB Smart Chain Testnet in your wallet, then reconnect.",
         );
-      if (!accounts[0])
+      if (
+        !Array.isArray(accounts) ||
+        typeof accounts[0] !== "string" ||
+        !/^0x[0-9a-fA-F]{40}$/.test(accounts[0])
+      )
         throw new Error(
           "No account selected. Please select an account in your wallet.",
         );
